@@ -1,0 +1,30 @@
+{
+	"@metadata": {
+		"authors": [
+			"Claude (Anthropic)"
+		]
+	},
+	"wikiclonecomment-desc": "Klonuje články z jiné wiki a doplňuje je jasně odlišenými vlastními komentáři ukotvenými k nadpisům",
+	"wikiclonecomment-attribution": "Tělo této stránky je převzato z článku $1 na $5 (revize $3, synchronizováno $6). Tento text je dostupný pod licencí $4 — viz $2. Pasáže označené jako komentář napsali přispěvatelé této wiki a nejsou součástí původního článku.",
+	"wikiclonecomment-authors": "seznam autorů",
+	"wikiclonecomment-comment-label": "Komentář — {{SITENAME}}",
+	"wikiclonecomment-comments-heading": "Komentáře",
+	"wikiclonecomment-not-synced": "Tato stránka má klonovat článek <strong>$1</strong>, ale zatím se nic nestáhlo. Doplní to nejbližší synchronizace.",
+	"wikiclonecomment-source-conflict": "Uložená kopie článku <strong>$1</strong> pochází z <code>$2</code>, ale tato stránka žádá <code>$3</code>. Nic se nezobrazuje, protože obsah z jiného zdroje by byl chybně připsán.",
+	"wikiclonecomment-orphaned-intro": "$1 {{PLURAL:$1|komentář byl ukotven|komentáře byly ukotveny|komentářů bylo ukotveno}} k nadpisu, který se v původním článku už nevyskytuje. Obsah na zdroji se změnil — přesuňte {{PLURAL:$1|ho|je}} k nadpisu, který tam pořád je.",
+	"wikiclonecomment-orphaned-anchor": "Byl ukotven k nadpisu: $1",
+	"wikiclonecomment-error-no-target": "<strong>Direktiva klonu:</strong> není zadaný článek. Použijte <code>{{#wikiclone: Název stránky}}</code>, nebo vložte celou adresu původního článku.",
+	"wikiclonecomment-error-no-sources": "<strong>Direktiva klonu:</strong> tato wiki nemá nastavené žádné zdroje. Doplňte <code>$wgWikiCloneSources</code>.",
+	"wikiclonecomment-error-source-not-allowed": "<strong>Direktiva klonu:</strong> <code>$1</code> není povolený zdroj. Tato wiki smí klonovat z: $2",
+	"wikiclonecomment-error-bad-url": "<strong>Direktiva klonu:</strong> <code>$1</code> nevypadá jako adresa článku. Očekává se něco jako <code>https://cs.wikipedia.org/wiki/Název_stránky</code>.",
+	"wikiclonecomment-error-ambiguous-source": "<strong>Direktiva klonu:</strong> zdrojů je nastaveno víc a žádný není výchozí, takže samotný název stránky je nejednoznačný. Vložte místo něj celou adresu článku.",
+	"wikiclonecomment-error-duplicate": "<strong>Direktiva klonu:</strong> stránka může klonovat jen jeden článek. Odeberte tu druhou direktivu.",
+	"wikiclonecomment-error-encode": "Stažený článek se nepodařilo zakódovat do JSONu.",
+	"wikiclonecomment-error-foreign-content": "Stránka, která klonuje článek, smí obsahovat jen direktivu klonu a bloky <code>&lt;wikiclone-comment&gt;</code> — cokoli dalšího by se vykreslilo mimo označený komentář a smazalo by hranici mezi vašimi slovy a textem zdroje.\n\nOdeberte tento text: <code>$1</code>\n\nPokud stránka měla obsah už dřív, pořád je v historii: otevřete předchozí verzi, zkopírujte, co stojí za zachování, a vložte to dovnitř bloku <code>&lt;wikiclone-comment&gt;</code>.",
+	"wikiclonecomment-tracking-category": "Stránky klonované z jiné wiki",
+	"wikiclonecomment-tracking-category-desc": "Stránka používá <code>{{#wikiclone:}}</code>, takže její tělo je převzaté z jiné wiki.",
+	"wikiclonecomment-orphaned-category": "Stránky s komentářem u chybějícího nadpisu",
+	"wikiclonecomment-orphaned-category-desc": "Komentář na stránce je ukotvený k nadpisu, který se v původním článku už nevyskytuje.",
+	"wikiclonecomment-error-category": "Stránky s rozbitou direktivou klonu",
+	"wikiclonecomment-error-category-desc": "Direktivu klonu na stránce se nepodařilo vyhodnotit, nebo se pro ni zatím nic nesynchronizovalo."
+}

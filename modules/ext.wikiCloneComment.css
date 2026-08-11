@@ -1,0 +1,127 @@
+/*
+ * WikiCloneComment — styling for cloned articles and their commentary.
+ *
+ * Colours come from Codex design tokens with plain fallbacks, so the default
+ * look belongs to whatever skin and theme the wiki runs, light or dark, rather
+ * than to this extension. A wiki that wants the commentary in its own house
+ * colours overrides the two custom properties below in MediaWiki:Common.css:
+ *
+ *   .wikiclone { --wikiclone-accent: #f0b400; --wikiclone-accent-text: #0f1012; }
+ *
+ * The one thing a wiki should not remove is the visual separation itself. It is
+ * what tells a reader which words are the source's and which are this wiki's,
+ * and it is what keeps the two works distinguishable rather than merged.
+ */
+
+.wikiclone {
+	--wikiclone-accent: var( --border-color-progressive, #36c );
+	--wikiclone-accent-text: var( --color-inverted, #fff );
+}
+
+/* -------------------------------------------------------------- *
+ * Attribution                                                     *
+ * -------------------------------------------------------------- */
+
+.wikiclone-attribution,
+.wikiclone-notice,
+.wikiclone-error {
+	margin-bottom: 1.2em;
+	padding: 0.7em 1em;
+	background-color: var( --background-color-neutral-subtle, #f8f9fa );
+	border: 1px solid var( --border-color-subtle, #c8ccd1 );
+	border-left-width: 4px;
+	font-size: 0.9em;
+	line-height: 1.5;
+}
+
+.wikiclone-attribution {
+	border-left-color: var( --border-color-base, #a2a9b1 );
+}
+
+.wikiclone-notice {
+	border-left-color: var( --border-color-warning, #edab00 );
+}
+
+.wikiclone-error {
+	background-color: var( --background-color-error-subtle, #fee7e6 );
+	border-color: var( --border-color-error, #d73333 );
+	font-size: 1em;
+}
+
+.wikiclone-attribution p:last-child,
+.wikiclone-notice p:last-child {
+	margin-bottom: 0;
+}
+
+/* -------------------------------------------------------------- *
+ * Commentary                                                      *
+ *                                                                 *
+ * Deliberately loud. A quiet box would be read as part of the      *
+ * article, which is exactly the confusion this has to prevent.     *
+ * -------------------------------------------------------------- */
+
+.wikiclone-comment {
+	margin: 1.1em 0;
+	background-color: var( --background-color-interactive-subtle, #f8f9fa );
+	border: 1px solid var( --border-color-subtle, #c8ccd1 );
+	border-left: 5px solid var( --wikiclone-accent );
+	overflow: hidden;
+}
+
+.wikiclone-comment-label {
+	padding: 0.35em 0.9em;
+	background-color: var( --wikiclone-accent );
+	color: var( --wikiclone-accent-text );
+	font-weight: 700;
+	font-size: 0.85em;
+	letter-spacing: 0.03em;
+	text-transform: uppercase;
+}
+
+.wikiclone-comment-body {
+	padding: 0.8em 0.9em 0.2em;
+}
+
+.wikiclone-comment-body > *:last-child {
+	margin-bottom: 0.6em;
+}
+
+/* Orphaned comments — the heading they pointed at is gone. */
+
+.wikiclone-comment-orphaned {
+	border-left-color: var( --border-color-warning, #edab00 );
+}
+
+.wikiclone-comment-orphaned .wikiclone-comment-label {
+	background-color: var( --border-color-warning, #edab00 );
+	color: #000;
+}
+
+.wikiclone-comment-orphan {
+	padding: 0.35em 0.9em;
+	background-color: var( --background-color-warning-subtle, #fef6e7 );
+	color: var( --color-base, #202122 );
+	border-bottom: 1px solid var( --border-color-subtle, #c8ccd1 );
+	font-size: 0.85em;
+}
+
+.wikiclone-orphan-notice {
+	margin-top: 1.6em;
+}
+
+/* -------------------------------------------------------------- *
+ * Print                                                           *
+ * -------------------------------------------------------------- */
+
+@media print {
+	.wikiclone-comment {
+		border: 1px solid #000;
+		border-left-width: 5px;
+	}
+
+	.wikiclone-comment-label {
+		background-color: transparent;
+		color: #000;
+		border-bottom: 1px solid #000;
+	}
+}

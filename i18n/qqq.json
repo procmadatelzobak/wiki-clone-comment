@@ -1,0 +1,30 @@
+{
+	"@metadata": {
+		"authors": [
+			"Claude (Anthropic)"
+		]
+	},
+	"wikiclonecomment-desc": "{{desc|name=WikiCloneComment|url=https://github.com/procmadatelzobak/wiki-clone-comment}}",
+	"wikiclonecomment-attribution": "Attribution banner shown above every cloned article. Satisfies CC BY-SA by naming the source, crediting the authors and marking which part of the page is reused.\n\nParameters:\n* $1 - link to the upstream article, label is the article title\n* $2 - link to the upstream page history, label is {{msg-mw|wikiclonecomment-authors}}\n* $3 - link to the exact upstream revision that was copied, label is the revision id\n* $4 - link to the licence the upstream text is under, e.g. CC BY-SA 4.0\n* $5 - name of the upstream site, e.g. Wikipedie\n* $6 - date and time of the last successful sync",
+	"wikiclonecomment-authors": "Link label inside {{msg-mw|wikiclonecomment-attribution}}. Points at the upstream page history, which is the accepted way of crediting every author of the reused text.",
+	"wikiclonecomment-comment-label": "Heading of a commentary box, distinguishing this wiki's words from the copied article.",
+	"wikiclonecomment-comments-heading": "Heading above commentary shown when the cloned article itself is not available yet.",
+	"wikiclonecomment-not-synced": "Shown when a page declares a clone but no copy has been downloaded yet. Parameters:\n* $1 - the upstream article title",
+	"wikiclonecomment-source-conflict": "Shown when the shadow page holding the copy belongs to a different upstream wiki than the one this page asks for. Parameters:\n* $1 - the upstream article title\n* $2 - host the stored copy came from\n* $3 - host this page asked for",
+	"wikiclonecomment-orphaned-intro": "Introduces comments whose anchor heading disappeared from the source article. Parameters:\n* $1 - number of such comments",
+	"wikiclonecomment-orphaned-anchor": "Shown inside an orphaned comment box. Parameters:\n* $1 - the anchor the comment was pinned to, underscores replaced by spaces",
+	"wikiclonecomment-error-no-target": "Parser error: the clone directive was given no argument.",
+	"wikiclonecomment-error-no-sources": "Parser error: $wgWikiCloneSources is empty, so nothing can be cloned.",
+	"wikiclonecomment-error-source-not-allowed": "Parser error: the requested host is not on the allow-list. Parameters:\n* $1 - the rejected host\n* $2 - comma-separated list of allowed hosts",
+	"wikiclonecomment-error-bad-url": "Parser error: the given URL contains no recognisable article title. Parameters:\n* $1 - the URL as typed",
+	"wikiclonecomment-error-ambiguous-source": "Parser error: a bare page title was used while several sources are configured and none is the default.",
+	"wikiclonecomment-error-duplicate": "Parser error: more than one clone directive on a single page.",
+	"wikiclonecomment-error-encode": "Error shown when the fetched article cannot be serialised to JSON for storage.",
+	"wikiclonecomment-error-foreign-content": "Save is refused because the page mixes free wikitext in with the clone directive. Also tells the author that pre-existing content is still in the page history and must be moved by hand. Parameters:\n* $1 - a truncated excerpt of the offending text",
+	"wikiclonecomment-tracking-category": "{{tracking category name}}",
+	"wikiclonecomment-tracking-category-desc": "{{tracking category desc}}",
+	"wikiclonecomment-orphaned-category": "{{tracking category name}}",
+	"wikiclonecomment-orphaned-category-desc": "{{tracking category desc}}",
+	"wikiclonecomment-error-category": "{{tracking category name}}",
+	"wikiclonecomment-error-category-desc": "{{tracking category desc}}"
+}

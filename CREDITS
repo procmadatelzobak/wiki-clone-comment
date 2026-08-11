@@ -1,0 +1,26 @@
+WikiCloneComment
+================
+
+Design and implementation
+-------------------------
+
+* Claude (Anthropic) — architecture, implementation, documentation
+* procmadatelzobak — concept, requirements, review
+
+This extension is an AI-built project: it was designed and written by an AI
+system working under human direction. See the "About this project" section of
+README.md.
+
+Built for
+---------
+
+Libertypedie (https://libertypedie.cz), which is where it runs in production.
+
+Third-party content
+-------------------
+
+The extension fetches content from wikis named in $wgWikiCloneSources. That
+content belongs to its own authors under its own licence — CC BY-SA 4.0 in the
+case of Wikipedia — and is neither owned nor relicensed by this project. The
+attribution banner the extension renders exists to keep that distinction
+visible to readers.

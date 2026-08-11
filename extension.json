@@ -1,0 +1,123 @@
+{
+	"name": "WikiCloneComment",
+	"version": "0.1.0",
+	"author": [
+		"Claude (Anthropic)",
+		"procmadatelzobak"
+	],
+	"url": "https://github.com/procmadatelzobak/wiki-clone-comment",
+	"descriptionmsg": "wikiclonecomment-desc",
+	"license-name": "GPL-2.0-or-later",
+	"type": "parserhook",
+	"requires": {
+		"MediaWiki": ">= 1.43.0"
+	},
+	"AutoloadNamespaces": {
+		"MediaWiki\\Extension\\WikiCloneComment\\": "includes/"
+	},
+	"MessagesDirs": {
+		"WikiCloneComment": [
+			"i18n"
+		]
+	},
+	"ExtensionMessagesFiles": {
+		"WikiCloneCommentMagic": "WikiCloneComment.magic.php"
+	},
+	"namespaces": [
+		{
+			"id": 3000,
+			"constant": "NS_WIKICLONE",
+			"name": "WikiClone",
+			"subpages": false,
+			"content": false,
+			"defaultcontentmodel": "json",
+			"protection": [
+				"wikiclone-sync"
+			]
+		},
+		{
+			"id": 3001,
+			"constant": "NS_WIKICLONE_TALK",
+			"name": "WikiClone_talk",
+			"subpages": true,
+			"content": false
+		}
+	],
+	"AvailableRights": [
+		"wikiclone-sync"
+	],
+	"GroupPermissions": {
+		"sysop": {
+			"wikiclone-sync": true
+		},
+		"bot": {
+			"wikiclone-sync": true
+		}
+	},
+	"config": {
+		"WikiCloneSources": {
+			"description": "Allow-list of upstream wikis. Key is the host; value holds the API endpoint and the human-facing article URL pattern ($1 = title). Nothing outside this list can ever be fetched.",
+			"value": {
+				"cs.wikipedia.org": {
+					"api": "https://cs.wikipedia.org/w/api.php",
+					"articleUrl": "https://cs.wikipedia.org/wiki/$1",
+					"siteName": "Wikipedie",
+					"licence": "CC BY-SA 4.0",
+					"licenceUrl": "https://creativecommons.org/licenses/by-sa/4.0/deed.cs"
+				}
+			}
+		},
+		"WikiCloneDefaultSource": {
+			"description": "Host used when the directive names a bare page title instead of a full URL. Null means: use the only configured source.",
+			"value": null
+		},
+		"WikiCloneNamespaceName": {
+			"description": "Display name for the shadow namespace, e.g. \"Wikipedie\". Null keeps the built-in \"WikiClone\".",
+			"value": null
+		},
+		"WikiCloneContact": {
+			"description": "Contact address embedded in the outgoing User-Agent. Wikimedia's User-Agent policy requires one; syncing refuses to run without it.",
+			"value": ""
+		},
+		"WikiCloneRequestTimeout": {
+			"description": "Per-request timeout in seconds when talking to the upstream API.",
+			"value": 25
+		},
+		"WikiCloneMaxLag": {
+			"description": "Value of the maxlag API parameter. Politeness setting for Wikimedia wikis; see https://www.mediawiki.org/wiki/Manual:Maxlag_parameter",
+			"value": 5
+		},
+		"WikiCloneSyncUser": {
+			"description": "Name of the system account that owns shadow-page edits. Created on demand.",
+			"value": "WikiClone sync"
+		}
+	},
+	"callback": "MediaWiki\\Extension\\WikiCloneComment\\Hooks::onRegistration",
+	"HookHandlers": {
+		"main": {
+			"class": "MediaWiki\\Extension\\WikiCloneComment\\Hooks"
+		}
+	},
+	"Hooks": {
+		"ParserFirstCallInit": "main",
+		"ParserAfterTidy": "main",
+		"EditFilterMergedContent": "main"
+	},
+	"TrackingCategories": [
+		"wikiclonecomment-tracking-category",
+		"wikiclonecomment-orphaned-category",
+		"wikiclonecomment-error-category"
+	],
+	"ResourceFileModulePaths": {
+		"localBasePath": "modules",
+		"remoteExtPath": "WikiCloneComment/modules"
+	},
+	"ResourceModules": {
+		"ext.wikiCloneComment.styles": {
+			"styles": [
+				"ext.wikiCloneComment.css"
+			]
+		}
+	},
+	"manifest_version": 2
+}

@@ -1,0 +1,30 @@
+{
+	"@metadata": {
+		"authors": [
+			"Claude (Anthropic)"
+		]
+	},
+	"wikiclonecomment-desc": "Clone articles from an upstream wiki and annotate them with clearly-marked local commentary anchored to headings",
+	"wikiclonecomment-attribution": "The body of this page is copied from the article $1 on $5 (revision $3, synced $6). That text is available under $4 — see the $2. Passages marked as commentary are written by contributors to this wiki and are not part of the original article.",
+	"wikiclonecomment-authors": "list of authors",
+	"wikiclonecomment-comment-label": "Commentary — {{SITENAME}}",
+	"wikiclonecomment-comments-heading": "Commentary",
+	"wikiclonecomment-not-synced": "This page is set to clone <strong>$1</strong>, but nothing has been downloaded yet. The next sync run will fill it in.",
+	"wikiclonecomment-source-conflict": "The stored copy of <strong>$1</strong> came from <code>$2</code>, but this page asks for <code>$3</code>. Nothing is shown, because serving content from the wrong source would misattribute it.",
+	"wikiclonecomment-orphaned-intro": "$1 {{PLURAL:$1|comment|comments}} below {{PLURAL:$1|was|were}} anchored to a heading that no longer exists in the source article. The source text changed — move {{PLURAL:$1|it|them}} to a heading that is still there.",
+	"wikiclonecomment-orphaned-anchor": "Was anchored to: $1",
+	"wikiclonecomment-error-no-target": "<strong>Clone directive:</strong> no article given. Use <code>{{#wikiclone: Page title}}</code> or paste the full URL of the upstream article.",
+	"wikiclonecomment-error-no-sources": "<strong>Clone directive:</strong> this wiki has no upstream sources configured. Set <code>$wgWikiCloneSources</code>.",
+	"wikiclonecomment-error-source-not-allowed": "<strong>Clone directive:</strong> <code>$1</code> is not an allowed source. This wiki may clone from: $2",
+	"wikiclonecomment-error-bad-url": "<strong>Clone directive:</strong> <code>$1</code> is not a recognisable article URL. Expected something like <code>https://cs.wikipedia.org/wiki/Page_title</code>.",
+	"wikiclonecomment-error-ambiguous-source": "<strong>Clone directive:</strong> several sources are configured and none is the default, so a bare page title is ambiguous. Paste the full URL of the article instead.",
+	"wikiclonecomment-error-duplicate": "<strong>Clone directive:</strong> a page can only clone one article. Remove the extra directive.",
+	"wikiclonecomment-error-encode": "The fetched article could not be encoded as JSON.",
+	"wikiclonecomment-error-foreign-content": "A page that clones an article may contain only the clone directive and <code>&lt;wikiclone-comment&gt;</code> blocks — everything else would render outside the marked commentary and blur the line between your words and the source's.\n\nRemove this text: <code>$1</code>\n\nIf the page had content before, it is still in the page history: open the previous revision, copy what is worth keeping, and paste it inside a <code>&lt;wikiclone-comment&gt;</code> block.",
+	"wikiclonecomment-tracking-category": "Pages cloned from another wiki",
+	"wikiclonecomment-tracking-category-desc": "The page uses <code>{{#wikiclone:}}</code>, so its body is copied from an upstream wiki.",
+	"wikiclonecomment-orphaned-category": "Pages with comments on a missing heading",
+	"wikiclonecomment-orphaned-category-desc": "A comment on the page is anchored to a heading that no longer exists in the source article.",
+	"wikiclonecomment-error-category": "Pages with a broken clone directive",
+	"wikiclonecomment-error-category-desc": "The clone directive on the page could not be resolved, or nothing has been synced for it."
+}
