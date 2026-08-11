@@ -75,13 +75,28 @@ class HtmlSanitizer {
 		'details' => [ 'open' ],
 	];
 
-	/** Wrappers that carry no meaning for a read-only copy. */
-	private const STRIP_BY_CLASS = [
+	/**
+	 * Wrappers that carry no meaning for a read-only copy: edit links, print
+	 * furniture, maintenance banners, and navigation templates.
+	 *
+	 * Navigation boxes deserve a word. They are not merely redundant on a
+	 * clone — they are unreadable, because their styling lives in
+	 * TemplateStyles which we drop along with every other <style> block. The
+	 * Czech Wikipedia's authority-control box, left in, renders as 27
+	 * unstyled rows of library catalogue numbers roughly 700px tall.
+	 *
+	 * The list is configurable because these class names are local to each
+	 * wiki: cs.wikipedia calls its navigation template "navbox2", other wikis
+	 * call it something else, and finding that out should not require a code
+	 * change.
+	 */
+	public const DEFAULT_STRIP_CLASSES = [
 		'mw-editsection',
 		'mw-editsection-bracket',
 		'mw-editsection-divider',
 		'noprint',
 		'navbox',
+		'navbox2',
 		'metadata',
 		'ambox',
 	];
@@ -89,11 +104,19 @@ class HtmlSanitizer {
 	/** @var string */
 	private $host;
 
+	/** @var string[] */
+	private $stripClasses;
+
 	/**
 	 * @param string $host Upstream host, used to absolutise links.
 	 */
 	public function __construct( string $host ) {
 		$this->host = $host;
+
+		$configured = Hooks::config()->get( 'WikiCloneStripClasses' );
+		$this->stripClasses = is_array( $configured ) && $configured
+			? $configured
+			: self::DEFAULT_STRIP_CLASSES;
 	}
 
 	/**
@@ -356,7 +379,7 @@ class HtmlSanitizer {
 
 		$classes = preg_split( '/\s+/', $class, -1, PREG_SPLIT_NO_EMPTY );
 
-		return (bool)array_intersect( $classes, self::STRIP_BY_CLASS );
+		return (bool)array_intersect( $classes, $this->stripClasses );
 	}
 
 	/**

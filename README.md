@@ -125,6 +125,7 @@ No database schema is added, so `update.php` is not needed.
 | `$wgWikiCloneDefaultSource` | `null` | Host assumed when the directive gives a bare title. `null` = the only configured source. |
 | `$wgWikiCloneNamespaceName` | `null` | Display name for the shadow namespace. `null` keeps `WikiClone`. |
 | `$wgWikiCloneSyncUser` | `WikiClone sync` | System account that owns shadow-page edits. |
+| `$wgWikiCloneStripClasses` | edit links, `noprint`, `navbox`, `navbox2`, `metadata`, `ambox` | Classes dropped from the fetched article. |
 | `$wgWikiCloneRequestTimeout` | `25` | Per-request timeout, seconds. |
 | `$wgWikiCloneMaxLag` | `5` | `maxlag` API parameter — politeness towards Wikimedia wikis. |
 
@@ -206,6 +207,12 @@ Two things are your responsibility, not the extension's:
 
 - **The local table of contents does not list cloned headings.** The article is spliced
   in after parsing, so the parser never sees those headings.
+- **Templates that style themselves render unstyled.** TemplateStyles arrive as inline
+  `<style>` blocks, which the sanitiser drops. The extension supplies layout for the
+  constructs that matter (infoboxes, floated thumbnails) and removes the ones that are
+  noise on a copy — navigation and authority-control boxes, via
+  `$wgWikiCloneStripClasses`. A wiki whose upstream uses different class names for
+  those will need to say so there.
 - **Search indexing is noisy.** The shadow page is indexed with its HTML markup.
   Cloned articles are findable, but the index entry contains tag noise.
 - **Deleted upstream images leave a gap**, since images are referenced rather than

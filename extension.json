@@ -75,6 +75,19 @@
 			"description": "Display name for the shadow namespace, e.g. \"Wikipedie\". Null keeps the built-in \"WikiClone\".",
 			"value": null
 		},
+		"WikiCloneStripClasses": {
+			"description": "CSS classes whose elements are dropped from the fetched article: edit links, print furniture, maintenance banners, navigation templates. These names are local to each upstream wiki — cs.wikipedia calls its navigation template \"navbox2\". Empty falls back to the built-in list.",
+			"value": [
+				"mw-editsection",
+				"mw-editsection-bracket",
+				"mw-editsection-divider",
+				"noprint",
+				"navbox",
+				"navbox2",
+				"metadata",
+				"ambox"
+			]
+		},
 		"WikiCloneSearchByDefault": {
 			"description": "Include the shadow namespace in the wiki's default search. The namespace is deliberately non-content so cloned pages do not inflate {{NUMBEROFARTICLES}}, but that would also drop it out of search — this puts it back.",
 			"value": true
