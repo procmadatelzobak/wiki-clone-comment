@@ -33,21 +33,30 @@ class Hooks implements
 
 	/**
 	 * Applied while the extension registry is being processed, which happens
-	 * *after* LocalSettings.php has run — so a wiki can rename the shadow
-	 * namespace with $wgWikiCloneNamespaceName without having to know the
-	 * numeric id or repeat the talk-namespace boilerplate.
+	 * *after* LocalSettings.php has run.
+	 *
+	 * Both settings below have to live here rather than in a wiki's
+	 * LocalSettings.php, because NS_WIKICLONE is defined by this very
+	 * registration step — referring to the constant any earlier is a fatal.
 	 */
 	public static function onRegistration(): void {
-		global $wgWikiCloneNamespaceName, $wgExtraNamespaces;
+		global $wgWikiCloneNamespaceName, $wgWikiCloneSearchByDefault,
+			$wgExtraNamespaces, $wgNamespacesToBeSearchedDefault;
 
 		$name = $wgWikiCloneNamespaceName ?? null;
-		if ( !is_string( $name ) || $name === '' ) {
-			return;
+		if ( is_string( $name ) && $name !== '' ) {
+			$name = strtr( trim( $name ), ' ', '_' );
+			$wgExtraNamespaces[3000] = $name;
+			$wgExtraNamespaces[3001] = $name . '_talk';
 		}
 
-		$name = strtr( trim( $name ), ' ', '_' );
-		$wgExtraNamespaces[3000] = $name;
-		$wgExtraNamespaces[3001] = $name . '_talk';
+		// The namespace is non-content on purpose, so cloned pages cannot
+		// inflate {{NUMBEROFARTICLES}} — but non-content also means "not
+		// searched by default", which would hide every clone from the wiki's
+		// own search while leaving it visible to Google.
+		if ( $wgWikiCloneSearchByDefault ?? true ) {
+			$wgNamespacesToBeSearchedDefault[3000] = true;
+		}
 	}
 
 	/**
