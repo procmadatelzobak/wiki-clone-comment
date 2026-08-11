@@ -156,17 +156,29 @@ class ShadowStore {
 	}
 
 	/**
-	 * Drops the parser cache for a local page.
+	 * Invalidates a local page after its upstream copy changed.
 	 *
-	 * Without this the article keeps serving the previous copy until something
-	 * else happens to touch it: the sync writes a different page (the shadow),
-	 * so nothing invalidates the article on its own.
+	 * The sync writes the *shadow* page, so nothing touches the article that
+	 * displays it and nothing would otherwise invalidate anything about it.
+	 *
+	 * Two things need refreshing, and a purge only does the first:
+	 *
+	 *  - the parser cache, or the article keeps serving the previous copy;
+	 *  - the link and category tables, or the tracking categories keep
+	 *    describing a render that no longer happens — a page whose comment
+	 *    just went orphaned would still be filed as "not synced yet", which is
+	 *    precisely the signal someone would be relying on.
 	 *
 	 * @param Title $title
 	 */
 	public static function purge( Title $title ): void {
-		$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
-		$page->doPurge();
+		$services = MediaWikiServices::getInstance();
+
+		$services->getWikiPageFactory()->newFromTitle( $title )->doPurge();
+
+		$services->getJobQueueGroup()->push(
+			\RefreshLinksJob::newDynamic( $title, [ 'causeAction' => 'wikiclone-sync' ] )
+		);
 	}
 
 	/**
