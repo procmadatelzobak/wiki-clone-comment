@@ -176,6 +176,21 @@ class HtmlSanitizer {
 			}
 
 			$this->cleanAttributes( $child, $tag );
+
+			// Stripping a hostile attribute can leave a husk behind: an <a>
+			// whose javascript: href is gone still renders as a link that does
+			// nothing, and an <img> that lost a data: src renders as a broken
+			// image icon. Neither is dangerous, both are visible to readers.
+			if ( $tag === 'img' && !$child->hasAttribute( 'src' ) ) {
+				$child->parentNode->removeChild( $child );
+				continue;
+			}
+			if ( $tag === 'a' && !$child->hasAttribute( 'href' ) ) {
+				$this->clean( $child );
+				$this->unwrap( $child );
+				continue;
+			}
+
 			$this->clean( $child );
 		}
 	}
