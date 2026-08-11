@@ -110,6 +110,129 @@
 }
 
 /* -------------------------------------------------------------- *
+ * Layout the upstream HTML expects but does not carry             *
+ *                                                                 *
+ * An article arrives with class names but not with the site CSS    *
+ * that gives them meaning: an infobox comes as                     *
+ * <table class="infobox" style="width:22em">, and the float that   *
+ * puts it beside the text lives in the upstream wiki's own         *
+ * stylesheet. Without these rules it lands in the middle of the    *
+ * prose at full width.                                            *
+ *                                                                 *
+ * Inlining upstream CSS instead was checked and does not solve it: *
+ * the TemplateStyles blocks that do travel with the HTML cover     *
+ * navboxes and portals, and contain no float at all.               *
+ *                                                                 *
+ * Everything is scoped to .wikiclone-body so none of it leaks into *
+ * the rest of the wiki, and colours come from Codex tokens so a    *
+ * dark-themed wiki does not get a glaring white panel.             *
+ * -------------------------------------------------------------- */
+
+.wikiclone-body {
+	/* Floats must not escape into the attribution or orphan blocks below. */
+	display: flow-root;
+}
+
+.wikiclone-body .infobox {
+	float: right;
+	clear: right;
+	margin: 0 0 1em 1.4em;
+	padding: 0.2em;
+	background-color: var( --background-color-neutral-subtle, #f8f9fa );
+	border: 1px solid var( --border-color-subtle, #c8ccd1 );
+	border-spacing: 3px;
+	font-size: 88%;
+	line-height: 1.4;
+}
+
+.wikiclone-body .infobox > caption {
+	padding: 0.3em 0.4em 0.5em;
+	font-size: 1.15em;
+	font-weight: 700;
+	text-align: center;
+}
+
+.wikiclone-body .infobox th,
+.wikiclone-body .infobox td {
+	padding: 0.25em 0.5em;
+	vertical-align: top;
+}
+
+/* Thumbnails. Both spellings appear in the wild: the classic
+   .thumb/.tright markup, and <figure class="mw-default-size"> which is
+   what the Czech Wikipedia emits today. Right is the default. */
+
+.wikiclone-body .thumb,
+.wikiclone-body .tright,
+.wikiclone-body .floatright,
+.wikiclone-body figure.mw-halign-right,
+.wikiclone-body figure.mw-default-size {
+	float: right;
+	clear: right;
+	margin: 0.5em 0 1.3em 1.4em;
+}
+
+/* These come after the block above and match its specificity on purpose:
+   a figure is normally both .mw-default-size and .mw-halign-left, and the
+   explicit alignment has to be the one that wins. */
+.wikiclone-body .tleft,
+.wikiclone-body .floatleft,
+.wikiclone-body figure.mw-halign-left {
+	float: left;
+	clear: left;
+	margin: 0.5em 1.4em 1.3em 0;
+}
+
+.wikiclone-body figure.mw-halign-center,
+.wikiclone-body figure.mw-halign-none {
+	float: none;
+	margin: 0.8em 0;
+}
+
+.wikiclone-body figure.mw-halign-center {
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.wikiclone-body figure > figcaption {
+	padding: 0.4em 0.2em 0;
+	font-size: 88%;
+	line-height: 1.4;
+}
+
+/* An upstream image is served at whatever size upstream chose; without
+   this a wide one pushes the whole page sideways on a phone. */
+.wikiclone-body img {
+	max-width: 100%;
+	height: auto;
+}
+
+/* -------------------------------------------------------------- *
+ * Narrow screens                                                  *
+ *                                                                 *
+ * A 22em box floated beside text leaves a column two words wide on *
+ * a phone. Below this width nothing floats. The !important is      *
+ * aimed at the inline style="width:22em" that arrives on the       *
+ * element itself — a plain rule cannot outrank it.                 *
+ * -------------------------------------------------------------- */
+
+@media screen and ( max-width: 720px ) {
+	.wikiclone-body .infobox,
+	.wikiclone-body .thumb,
+	.wikiclone-body .tright,
+	.wikiclone-body .tleft,
+	.wikiclone-body .floatright,
+	.wikiclone-body .floatleft,
+	.wikiclone-body figure.mw-halign-right,
+	.wikiclone-body figure.mw-halign-left,
+	.wikiclone-body figure.mw-default-size {
+		float: none;
+		width: auto !important;
+		margin: 0 0 1em;
+	}
+}
+
+/* -------------------------------------------------------------- *
  * Print                                                           *
  * -------------------------------------------------------------- */
 
