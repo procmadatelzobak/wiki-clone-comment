@@ -9,6 +9,7 @@ namespace MediaWiki\Extension\WikiCloneComment;
 
 use MediaWiki\CommentStore\CommentStoreComment;
 use MediaWiki\Content\ContentHandler;
+use MediaWiki\Content\TextContent;
 use MediaWiki\MediaWikiServices;
 use MediaWiki\Revision\SlotRecord;
 use MediaWiki\Title\Title;
@@ -70,11 +71,11 @@ class ShadowStore {
 
 		$page = MediaWikiServices::getInstance()->getWikiPageFactory()->newFromTitle( $title );
 		$content = $page->getContent();
-		if ( !$content ) {
+		if ( !$content instanceof TextContent ) {
 			return null;
 		}
 
-		$data = json_decode( ContentHandler::getContentText( $content ) ?? '', true );
+		$data = json_decode( $content->getText(), true );
 
 		return is_array( $data ) ? $data : null;
 	}
